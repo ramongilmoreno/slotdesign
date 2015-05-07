@@ -1,0 +1,8 @@
+build/
+.project
+.classpath
+workspace/
+.gradle
+.settings/
+.gitignore
+*.swp

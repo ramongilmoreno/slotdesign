@@ -1,0 +1,88 @@
+// https://github.com/sothmann/typescript-gradle-plugin
+buildscript {
+    repositories {
+       jcenter()
+    }
+    dependencies {
+        classpath 'de.richsource.gradle.plugins:typescript-gradle-plugin:1.1'
+    }
+}
+
+apply plugin: "typescript"
+apply plugin: "war"
+apply plugin: "eclipse"
+apply plugin: 'jetty'
+
+eclipse {
+    project {
+        // To use the Palantir Eclipse plugin from
+        // https://github.com/palantir/eclipse-typescript
+        
+        // http://gradle.org/docs/current/dsl/org.gradle.plugins.ide.eclipse.model.EclipseProject.html
+        natures 'com.palantir.typescript.typeScriptNature'
+        buildCommand 'com.palantir.typescript.typeScriptBuilder'
+    }
+}
+
+
+compileTypeScript {
+    sourcemap = true
+    // additional configuration options
+
+    // We are building a module
+    module = "AMD"
+
+    // Using setters and getters require ECMAScript5
+    target = "ES5"
+}
+
+// https://blog.oio.de/2014/01/31/how-to-integrate-the-typescript-compiler-into-a-gradle-build/
+
+
+// Produce an eclipse project for the palantir plugin
+tasks.eclipse.doLast {
+
+   // Produce file
+   //    .settings/com.palantir.typescript.prefs
+   //
+   // With these lines:
+   // 
+   //     compiler.codeGenTarget=ECMASCRIPT5
+   //     compiler.moduleGenTarget=ASYNCHRONOUS
+   //     eclipse.preferences.version=1
+
+   def contents = '''
+compiler.codeGenTarget=ECMASCRIPT5
+compiler.moduleGenTarget=ASYNCHRONOUS
+eclipse.preferences.version=1
+'''
+   def tdir = file('.settings')
+   tdir.mkdirs()
+   file('.settings/com.palantir.typescript.prefs').text = contents;
+}
+
+war {
+    from compileTypeScript.outputs
+}
+
+jettyRun.dependsOn tasks.compileTypeScript
+
+
+// Include js/ directory in jettyRun (contents get into .war but Jetty does not notice it)
+// http://gradle.1045684.n5.nabble.com/Multiple-web-app-source-directories-jetty-plugin-td3211438.html
+// https://gist.github.com/aolshevskiy/1618850
+
+import org.gradle.api.plugins.jetty.internal.JettyPluginWebAppContext
+
+def newResourceCollection(File... resources) {
+  def shell = new GroovyShell(JettyPluginWebAppContext.class.classLoader)
+  shell.setProperty("resources", resources as String[])
+  return shell.evaluate(file("resource_collection.groovy"))
+}
+ 
+jettyRun.doFirst { 
+  jettyRun.webAppConfig = new JettyPluginWebAppContext() 
+  jettyRun.webAppConfig.baseResource = newResourceCollection(
+      file(webAppDirName), 
+      file('build/ts')) 
+}
