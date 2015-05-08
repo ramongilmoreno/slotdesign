@@ -77,7 +77,7 @@ import org.gradle.api.plugins.jetty.internal.JettyPluginWebAppContext
 def newResourceCollection(File... resources) {
   def shell = new GroovyShell(JettyPluginWebAppContext.class.classLoader)
   shell.setProperty("resources", resources as String[])
-  return shell.evaluate(file("resource_collection.groovy"))
+  return shell.evaluate('new org.mortbay.resource.ResourceCollection(resources)')
 }
  
 jettyRun.doFirst { 
