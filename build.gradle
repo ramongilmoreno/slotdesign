@@ -8,10 +8,12 @@ buildscript {
     }
 }
 
+// https://github.com/sothmann/typescript-gradle-plugin
 apply plugin: "typescript"
+
 apply plugin: "war"
 apply plugin: "eclipse"
-apply plugin: 'jetty'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 eclipse {
     project {
@@ -26,6 +28,7 @@ eclipse {
 
 
 compileTypeScript {
+    out file("${buildDir}/ts/${project.name}.js")
     sourcemap = true
     // additional configuration options
 
@@ -65,24 +68,12 @@ war {
     from compileTypeScript.outputs
 }
 
-jettyRun.dependsOn tasks.compileTypeScript
-
-
-// Include js/ directory in jettyRun (contents get into .war but Jetty does not notice it)
-// http://gradle.1045684.n5.nabble.com/Multiple-web-app-source-directories-jetty-plugin-td3211438.html
-// https://gist.github.com/aolshevskiy/1618850
-
-import org.gradle.api.plugins.jetty.internal.JettyPluginWebAppContext
-
-def newResourceCollection(File... resources) {
-  def shell = new GroovyShell(JettyPluginWebAppContext.class.classLoader)
-  shell.setProperty("resources", resources as String[])
-  return shell.evaluate('new org.mortbay.resource.ResourceCollection(resources)')
+gretty {
+    extraResourceBase "${buildDir}/ts"
 }
- 
-jettyRun.doFirst { 
-  jettyRun.webAppConfig = new JettyPluginWebAppContext() 
-  jettyRun.webAppConfig.baseResource = newResourceCollection(
-      file(webAppDirName), 
-      file('build/ts')) 
+
+//Tasks defined in plugins are added after all projects are evaluated
+//We have to hook after the evaluation to prevent an evaluation failure
+project.afterEvaluate {
+    project.tasks.appRun.dependsOn compileTypeScript
 }
