@@ -24,8 +24,10 @@ eclipse {
     }
 }
 
+def whereToBuildTypescript = file("${buildDir}/ts")
 
 compileTypeScript {
+    out new File(whereToBuildTypescript, "${project.name}.js")
     sourcemap = true
     // additional configuration options
 
@@ -62,7 +64,8 @@ eclipse.preferences.version=1
 }
 
 war {
-    from compileTypeScript.outputs
+    dependsOn tasks.compileTypeScript
+    from whereToBuildTypescript
 }
 
 jettyRun.dependsOn tasks.compileTypeScript
@@ -84,5 +87,6 @@ jettyRun.doFirst {
   jettyRun.webAppConfig = new JettyPluginWebAppContext() 
   jettyRun.webAppConfig.baseResource = newResourceCollection(
       file(webAppDirName), 
-      file('build/ts')) 
+      whereToBuildTypescript
+  )
 }
