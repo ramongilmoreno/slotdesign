@@ -68,8 +68,6 @@ war {
     from whereToBuildTypescript
 }
 
-jettyRun.dependsOn tasks.compileTypeScript
-
 
 // Include js/ directory in jettyRun (contents get into .war but Jetty does not notice it)
 // http://gradle.1045684.n5.nabble.com/Multiple-web-app-source-directories-jetty-plugin-td3211438.html
@@ -83,10 +81,13 @@ def newResourceCollection(File... resources) {
   return shell.evaluate('new org.mortbay.resource.ResourceCollection(resources)')
 }
  
-jettyRun.doFirst { 
-  jettyRun.webAppConfig = new JettyPluginWebAppContext() 
-  jettyRun.webAppConfig.baseResource = newResourceCollection(
-      file(webAppDirName), 
-      whereToBuildTypescript
-  )
+jettyRun {
+    dependsOn tasks.compileTypeScript
+    doFirst { 
+        jettyRun.webAppConfig = new JettyPluginWebAppContext() 
+        jettyRun.webAppConfig.baseResource = newResourceCollection(
+            file(webAppDirName), 
+            whereToBuildTypescript
+        )
+    }
 }
