@@ -27,7 +27,7 @@ eclipse {
 def whereToBuildTypescript = file("${buildDir}/ts")
 
 compileTypeScript {
-    out new File(whereToBuildTypescript, "${project.name}.js")
+    outputDir whereToBuildTypescript
     sourcemap = true
     // additional configuration options
 
