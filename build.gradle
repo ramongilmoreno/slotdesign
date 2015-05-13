@@ -28,11 +28,6 @@ def whereToBuildTypescript = file("${buildDir}/ts")
 
 compileTypeScript {
     outputDir whereToBuildTypescript
-    sourcemap = true
-    // additional configuration options
-
-    // We are building a module
-    module = "AMD"
 
     // Using setters and getters require ECMAScript5
     target = "ES5"
@@ -55,7 +50,6 @@ tasks.eclipse.doLast {
 
    def contents = '''
 compiler.codeGenTarget=ECMASCRIPT5
-compiler.moduleGenTarget=ASYNCHRONOUS
 eclipse.preferences.version=1
 '''
    def tdir = file('.settings')
