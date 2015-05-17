@@ -4,6 +4,6 @@ function greeter(person: string) {
     return "Hello, " + person;
     }
 
-var user = "Jane User " + Ninco.lane("1", "2", "3", 400).offset.y;
+var user = "Jane User " + Ninco.straight("1", "2", "3", 400).offset.y;
 
 document.body.innerHTML = greeter(user);
