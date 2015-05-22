@@ -1,34 +1,7 @@
+/// <reference path="Geometry"/>
+
 module Pieces {
-    export interface ICoordinates {
-        x: number;
-        y: number;
-    }
-
-    export class DefaultCoordinates implements ICoordinates {
-        private _x: number = 0;
-        private _y: number = 0;
-        constructor(x: number = 0, y: number = 0) { this._x = x; this._y = y; }
-        get x(): number { return this._x; }
-        set x(x: number) { this._x = x; }
-        get y(): number { return this._y; }
-        set y(y: number) { this._y = y; }
-    }
-
-    export interface IBox {
-        topLeft: ICoordinates;
-        bottomRight: ICoordinates;
-    }
-
-    export class DefaultBox implements IBox {
-        private _topLeft: ICoordinates;
-        private _bottomRight: ICoordinates;
-        constructor(topLeft: ICoordinates = new DefaultCoordinates(), bottomRight: ICoordinates = new DefaultCoordinates()) { this._topLeft = topLeft; this._bottomRight = bottomRight; }
-        get topLeft(): ICoordinates { return this._topLeft; }
-        set topLeft(topLeft: ICoordinates) { this._topLeft = topLeft; }
-        get bottomRight(): ICoordinates { return this._bottomRight; }
-        set bottomRight(bottomRight: ICoordinates) { this._bottomRight = bottomRight; }
-    }
-
+    
     export interface IIdentified {
         id: string;
         name: string;
@@ -53,11 +26,11 @@ module Pieces {
     }
 
     export interface ITrackPiece extends IIdentified {
-        offset: ICoordinates;
+        offset: Geometry.ICoordinates;
         rotation: number;
         manufacturer: string;
         svgPath: string;
-        box: IBox;
+        box: Geometry.IBox;
     }
 
     export class AbstractTrackPiece extends DefaultIdentified {
@@ -90,10 +63,10 @@ module Pieces {
         get length(): number { return this._length; }
         set length(length: number) { this._length = length; }
 
-        get offset(): ICoordinates {
-            return new DefaultCoordinates(0, this.length);
+        get offset(): Geometry.ICoordinates {
+            return new Geometry.DefaultCoordinates(0, this.length);
         }
-        set offset(offset: ICoordinates) { console.log("Unsupported"); }
+        set offset(offset: Geometry.ICoordinates) { console.log("Unsupported"); }
         get rotation(): number {
             return 0;
         }
@@ -106,11 +79,11 @@ module Pieces {
         }
         set svgPath(svgPath: string) { console.log("Unsupported"); }
 
-        get box(): IBox {
+        get box(): Geometry.IBox {
             var w2: number = Math.round(this.width / 2.0);
-            return new DefaultBox(new DefaultCoordinates(-w2, -this.length), new DefaultCoordinates(w2, 0));
+            return new Geometry.DefaultBox(new Geometry.DefaultCoordinates(-w2, -this.length), new Geometry.DefaultCoordinates(w2, 0));
         }
-        set box(box: IBox) { console.log("Unsupported"); }
+        set box(box: Geometry.IBox) { console.log("Unsupported"); }
     }
 
     export class DefaultCurve extends AbstractTrackPiece implements ITrackPiece {
@@ -123,11 +96,11 @@ module Pieces {
             this._innerRadius = innerRadius;
             this._arc = arc;
         }
-        get offset(): ICoordinates {
+        get offset(): Geometry.ICoordinates {
             var radius: number = this._innerRadius + (this.width / 2);
-            return new DefaultCoordinates(Math.cos(this._arc) * radius, Math.sin(this._arc) * radius);
+            return new Geometry.DefaultCoordinates(Math.cos(this._arc) * radius, Math.sin(this._arc) * radius);
         }
-        set offset(offset: ICoordinates) { console.log("Unsupported"); }
+        set offset(offset: Geometry.ICoordinates) { console.log("Unsupported"); }
         get rotation(): number {
             return this._arc;
         }
@@ -167,7 +140,7 @@ module Pieces {
                 ;
         }
         set svgPath(svgPath: string) { console.log("Unsupported"); }
-        get box(): IBox {
+        get box(): Geometry.IBox {
             var arc = this._arc % (2 * Math.PI);
             if (arc < 0) {
                 arc += (2 * Math.PI);
@@ -189,8 +162,8 @@ module Pieces {
             // outerCos
             // outerSin
 
-            var topLeft: ICoordinates = new DefaultCoordinates();
-            var bottomRight: ICoordinates = new DefaultCoordinates();
+            var topLeft: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
+            var bottomRight: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
             if (arc <= (Math.PI / 2)) {
                 topLeft.x = innerCos - this._innerRadius - w2 ;
                 topLeft.y = -outerSin;
@@ -212,7 +185,7 @@ module Pieces {
                 bottomRight.x = w2;
                 bottomRight.y = outerRadius;
             }
-            return new DefaultBox(topLeft, bottomRight);
+            return new Geometry.DefaultBox(topLeft, bottomRight);
         }
 
     }
