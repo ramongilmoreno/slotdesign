@@ -53,7 +53,8 @@ module Matrix {
 
     export interface MatrixCreator<T extends NumberMatrix> { (rows: number, columns: number): T };
 
-    export function compose<T extends NumberMatrix, T2 extends NumberMatrix>(a: T, b: T, creator: MatrixCreator<T2>): T2 {
+    export function compose<T1 extends NumberMatrix, T2 extends NumberMatrix, T3 extends NumberMatrix>
+            (a: T1, b: T2, creator: MatrixCreator<T3>): T3 {
         var rows: number = a.rows;
         var columns: number = b.columns;
         var range: number = a.columns;
@@ -62,7 +63,7 @@ module Matrix {
             throw new RangeError("Matrices cannot be composed: (" + a.rows + ", " + a.columns + ") x (" + b.rows + ", " + b.columns + ")");
         }
 
-        var r: T2 = creator(rows, columns);
+        var r: T3 = creator(rows, columns);
         for (var i: number = 0; i < rows; i++) {
             for (var j: number = 0; j < columns; j++) {
                 var v: number = 0;
@@ -98,6 +99,8 @@ module Matrix {
             this.setValue(1, 0, y);
             this.setValue(2, 0, 1);
         }
+        get x (): number { return this.getValue(0, 0); }
+        get y (): number { return this.getValue(1, 0); }
     }
     
     export function apply2D (a: Matrix2D, p: Point2D): Point2D {
@@ -111,7 +114,7 @@ module Matrix {
         return r;
     }
 
-    export function rotation(x: number, y: number, phi: number) {
+    export function rotation(x: number, y: number, phi: number): Matrix2D {
         var a:Matrix2D = translation(-x, -y);
         
         var b:Matrix2D = new Matrix2D();
@@ -124,6 +127,13 @@ module Matrix {
         
         var c:Matrix2D = translation(x, y);
         
-        return compose2D(compose2D(a, b), c);
+        return compose2D(compose2D(c, b), a);
+    }
+    
+    export function scale(sx: number, sy: number): Matrix2D {
+        var r: Matrix2D = new Matrix2D();
+        r.setValue(0, 0, sx);
+        r.setValue(1, 1, sy);
+        return r;
     }
 }

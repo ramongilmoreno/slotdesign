@@ -27,11 +27,20 @@
 			</div>
   		</ul>
   		<script>
-  			console.log(new Matrix.Matrix2D().toString());
-  			console.log(Matrix.translation(2, 2).toString());
-  			console.log(Matrix.compose2D(Matrix.translation(2, 2), Matrix.translation(3, 3)).toString());
-  			console.log(Matrix.rotation(0, 0, Math.PI / 2).toString());
-  			console.log(Matrix.apply2D(Matrix.rotation(0, 0, Math.PI / 2), new Matrix.Point2D(2, 3)).toString());
+  			console.log("Simple matrix", new Matrix.Matrix2D().toString());
+  			console.log("Translation", Matrix.translation(2, 2).toString());
+  			console.log("Composition", Matrix.compose2D(Matrix.translation(2, 2), Matrix.translation(3, 3)).toString());
+  			console.log("Rotation", Matrix.rotation(0, 0, Math.PI / 2).toString());
+  			console.log("Rotate (2, 3) around (0, 0) PI/2", Matrix.apply2D(Matrix.rotation(0, 0, Math.PI / 2), new Matrix.Point2D(2, 3)).toString());
+  			console.log("Rotate a box (3, 3) - (5, 7) around (4, 4), PI/2",
+  				Geometry.rotate(
+  					new Geometry.DefaultBox(
+  						new Geometry.DefaultCoordinates(3, 3),
+  						new Geometry.DefaultCoordinates(5, 7)
+  					),
+  					new Geometry.DefaultCoordinates(4, 4),
+  					Math.PI / 2
+  				).toString());
   		</script>
     </body>
 </html>
