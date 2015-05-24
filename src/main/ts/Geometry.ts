@@ -1,3 +1,5 @@
+/// <reference path="Matrix"/>
+
 module Geometry {
 
     export interface ICoordinates {
@@ -28,5 +30,9 @@ module Geometry {
         set topLeft(topLeft: ICoordinates) { this._topLeft = topLeft; }
         get bottomRight(): ICoordinates { return this._bottomRight; }
         set bottomRight(bottomRight: ICoordinates) { this._bottomRight = bottomRight; }
+    }
+    
+    export function rotate (box: IBox, center: ICoordinates, phi: number): IBox {
+        return undefined;
     }
 }

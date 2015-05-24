@@ -7,6 +7,7 @@
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     </head>
     <body ng-controller="slotdesignController">
+    	<script type="text/javascript" src="Matrix.js"></script>
     	<script type="text/javascript" src="Geometry.js"></script>
     	<script type="text/javascript" src="Pieces.js"></script>
     	<script type="text/javascript" src="Ninco.js"></script>
@@ -25,5 +26,12 @@
 				<p>{{piece.name}}</p>
 			</div>
   		</ul>
+  		<script>
+  			console.log(new Matrix.Matrix2D().toString());
+  			console.log(Matrix.translation(2, 2).toString());
+  			console.log(Matrix.compose2D(Matrix.translation(2, 2), Matrix.translation(3, 3)).toString());
+  			console.log(Matrix.rotation(0, 0, Math.PI / 2).toString());
+  			console.log(Matrix.apply2D(Matrix.rotation(0, 0, Math.PI / 2), new Matrix.Point2D(2, 3)).toString());
+  		</script>
     </body>
 </html>
