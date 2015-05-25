@@ -5,8 +5,8 @@ var track = new Pieces.DefaultTrack("sample", "Sample track", "Early test of tra
 
 var plane40 = Pieces.section(Ninco.ByRef["10102"]);
 var plane10 = Pieces.section(Ninco.ByRef["10104"]);
-var pright = Pieces.section(Ninco.ByRef["10105"], true);
-var pleft = Pieces.section(Ninco.ByRef["10105"]);
+var pright = Pieces.section(Ninco.ByRef["10105"]);
+var pleft = Pieces.section(Ninco.ByRef["10105"], true);
 
 function add (section: Pieces.ITrackSection) {
     track.pieces.push(section);

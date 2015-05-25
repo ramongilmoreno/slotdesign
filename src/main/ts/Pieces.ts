@@ -75,13 +75,13 @@ module Pieces {
             var w: number = this.width;
             var l: number = this.length;
             var w2: number = Math.round(w / 2.0);
-            return "l -" + w2 + ",0 l 0,-" + l + " l " + w + ",0 l 0," + l + " l -" + w2 + ",0";
+            return "l -" + w2 + ",0 l 0," + l + " l " + w + ",0 l 0," + (-l) + " l -" + w2 + ",0";
         }
         set svgPath(svgPath: string) { console.log("Unsupported"); }
 
         get box(): Geometry.IBox {
             var w2: number = Math.round(this.width / 2.0);
-            return new Geometry.DefaultBox(new Geometry.DefaultCoordinates(-w2, -this.length), new Geometry.DefaultCoordinates(w2, 0));
+            return new Geometry.DefaultBox(new Geometry.DefaultCoordinates(-w2, 0), new Geometry.DefaultCoordinates(w2, this.length));
         }
         set box(box: Geometry.IBox) { console.log("Unsupported"); }
     }
@@ -97,15 +97,13 @@ module Pieces {
             this._arc = arc;
         }
         get offset(): Geometry.ICoordinates {
-            var radius: number = this._innerRadius + (this.width / 2);
-            return new Geometry.DefaultCoordinates(Math.cos(this._arc) * radius, Math.sin(this._arc) * radius);
+            var rotation = Matrix.rotation(- this._innerRadius - (this.width / 2), 0, this._arc);
+            var r: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D());
+            return new Geometry.DefaultCoordinates(r.x, r.y);
         }
-        set offset(offset: Geometry.ICoordinates) { console.log("Unsupported"); }
         get rotation(): number {
             return this._arc;
         }
-        set rotation(rotation: number) { console.log("Unsupported"); }
-
         get svgPath(): string {
             var arc = this._arc % (2 * Math.PI);
             if (arc < 0) {
@@ -131,9 +129,9 @@ module Pieces {
             // a <x radius>,<y radius> 0 0,1 <end x>,<end y>
             var box = this.box;
             return "l " + (-w2) + ",0" +
-                " a " + this._innerRadius + "," + this._innerRadius + " 0 0,0 " + (innerCos - this._innerRadius) + "," + (-innerSin) +
-                " l " + (outerCos - innerCos) + "," + (-outerSin + innerSin) +
-                " a " + outerRadius + "," + outerRadius + " 0 0,1 " + (outerRadius - outerCos) + "," + outerSin +
+                " a " + this._innerRadius + "," + this._innerRadius + " 0 0,1 " + (innerCos - this._innerRadius) + "," + innerSin +
+                " l " + (outerCos - innerCos) + "," + -(-outerSin + innerSin) +
+                " a " + outerRadius + "," + outerRadius + " 0 0,0 " + (outerRadius - outerCos) + "," + -outerSin +
                 " l " + (-w2) + ", 0"
                 // reveal the bbox for debugging purposes
                 // + " m " + box.topLeft.x + "," + box.topLeft.y + " l " + (box.bottomRight.x - box.topLeft.x) + "," + (box.bottomRight.y - box.topLeft.y)
@@ -166,24 +164,11 @@ module Pieces {
             var bottomRight: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
             if (arc <= (Math.PI / 2)) {
                 topLeft.x = innerCos - this._innerRadius - w2 ;
-                topLeft.y = -outerSin;
+                topLeft.y = 0;
                 bottomRight.x = w2;
-                bottomRight.y = 0;
-            } else if (arc <= (Math.PI)) {
-                topLeft.x = -w2 - this._innerRadius + outerCos;
-                topLeft.y = -outerRadius;
-                bottomRight.x = w2
-                bottomRight.y = 0;
-            } else if (arc <= (3 * Math.PI / 2)) {
-                topLeft.x = -w2 - this._innerRadius - outerRadius;
-                topLeft.y = -outerRadius;
-                bottomRight.x = w2;
-                bottomRight.y = -outerSin;
-            } else if (arc <= (Math.PI * 2)) {
-                topLeft.x = -w2 - this._innerRadius - outerRadius;
-                topLeft.y = -outerRadius;
-                bottomRight.x = w2;
-                bottomRight.y = outerRadius;
+                bottomRight.y = outerSin;
+            } else {
+                throw new RangeError("Arc cannot be over " + (Math.PI / 2));
             }
             return new Geometry.DefaultBox(topLeft, bottomRight);
         }
@@ -234,11 +219,15 @@ module Pieces {
                 var move: Matrix.Matrix2D = undefined;
                 if (section.rotate) {
                     // Compose a rotation and translation of the piece
-                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, -(Math.PI - piece.rotation));
+                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, Math.PI - piece.rotation);
                     var translatedPoint: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D(piece.offset.x, piece.offset.y));
                     var translation: Matrix.Matrix2D = Matrix.translation(-translatedPoint.x, -translatedPoint.y);
-                    matrix = Matrix.compose2D(Matrix.compose2D(translation, rotation), matrix);
-                    move = translation;
+                    var composition: Matrix.Matrix2D = Matrix.compose2D(translation, rotation);
+                    matrix = Matrix.compose2D(matrix, composition);
+                    
+                    // Apply composition to translated point
+                    translatedPoint = Matrix.apply2D(composition, new Matrix.Point2D(piece.offset.x, piece.offset.y));
+                    move = Matrix.translation(translatedPoint.x, translatedPoint.y);
                 } else {
                     move = Matrix.translation(piece.offset.x, piece.offset.y);
                 }
@@ -251,8 +240,8 @@ module Pieces {
                                 
                 // Apply the modifications of this piece: first move then rotate
                 result.box = Geometry.addBoxes(result.box, Geometry.apply(piece.box, matrix));
-                matrix = Matrix.compose2D(move, matrix);
-                matrix = Matrix.compose2D(Matrix.rotation(0, 0, piece.rotation), matrix);
+                matrix = Matrix.compose2D(matrix, move);
+                matrix = Matrix.compose2D(matrix, Matrix.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
             }
             return result;
         }

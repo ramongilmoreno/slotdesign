@@ -91,6 +91,6 @@ module Geometry {
     }
 
     export function rotate(box: IBox, center: ICoordinates, phi: number): IBox {
-        return apply(box, Matrix.rotation(center.x, center.y, -phi));
+        return apply(box, Matrix.rotation(center.x, center.y, phi));
     }
 }

@@ -13,8 +13,9 @@
     	<script type="text/javascript" src="Ninco.js"></script>
     	<script type="text/javascript" src="Main.js"></script>
     	<script type="text/javascript" src="angular.js"></script>
-		<ul>
-			<div ng-repeat="piece in slotdesign.pieces" style="display: inline-block;">
+		<p>
+			<div ng-repeat="piece in slotdesign.pieces" style="display: inline-block; vertical-align: text-top;">
+				<p>{{piece.name}}</p>
 				<svg
 					width="{{piece.box.bottomRight.x - piece.box.topLeft.x}}"
 					height="{{piece.box.bottomRight.y - piece.box.topLeft.y}}"
@@ -23,15 +24,15 @@
 				>
 						<path d="M 0,0 {{piece.svgPath}}" stroke="gray" stroke-width="3"/>
 				</svg>
-				<p>{{piece.name}}</p>
 			</div>
-			
-			
+        </p>
+        <p>
 			<svg
 				width="1000"
 				height="1000"
-				viewBox="-2000 -2000 4000 4000"
+				viewBox="{{slotdesign.follow.box.topLeft.x}} {{slotdesign.follow.box.topLeft.y}} {{slotdesign.follow.box.bottomRight.x - slotdesign.follow.box.topLeft.x + 20}} {{slotdesign.follow.box.bottomRight.y - slotdesign.follow.box.topLeft.y + 20}}"
 				preserveAspectRatio="xMidYMid meet"
+				style="border: 1px solid;"
 			>
 				<path
 					ng-repeat="section in slotdesign.follow.sections"
@@ -40,7 +41,7 @@
 					stroke="gray" stroke-width="3"
 				/>
 			</svg>
-  		</ul>
+  		</p>
   		<script>
   			console.log("Simple matrix", new Matrix.Matrix2D().toString());
   			console.log("Translation", Matrix.translation(2, 2).toString());
