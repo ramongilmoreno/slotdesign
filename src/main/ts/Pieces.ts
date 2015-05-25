@@ -212,7 +212,53 @@ module Pieces {
         pieces: ITrackSection[];
     }
 
+    export class RenderedTrackSection {
+        public matrix: Matrix.Matrix2D;
+        public path: string;
+    }
+    
+    export class RenderedTrack {
+        public box: Geometry.IBox = new Geometry.DefaultBox();
+        public sections: RenderedTrackSection[] = [];
+    }
+    
     export class DefaultTrack extends DefaultIdentified {
         pieces: ITrackSection[] = [];
+        
+        public follow (): RenderedTrack {
+            var result: RenderedTrack = new RenderedTrack();
+            var matrix: Matrix.Matrix2D = new Matrix.Matrix2D();
+            for (var i = 0; i < this.pieces.length; i++) {
+                var section: ITrackSection = this.pieces[i];
+                var piece: ITrackPiece = section.piece;
+                var move: Matrix.Matrix2D = undefined;
+                if (section.rotate) {
+                    // Compose a rotation and translation of the piece
+                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, -(Math.PI - piece.rotation));
+                    var translatedPoint: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D(piece.offset.x, piece.offset.y));
+                    var translation: Matrix.Matrix2D = Matrix.translation(-translatedPoint.x, -translatedPoint.y);
+                    matrix = Matrix.compose2D(Matrix.compose2D(translation, rotation), matrix);
+                    move = translation;
+                } else {
+                    move = Matrix.translation(piece.offset.x, piece.offset.y);
+                }
+                
+                // Save into current
+                var rts: RenderedTrackSection = new RenderedTrackSection();
+                rts.matrix = matrix;
+                rts.path = piece.svgPath;
+                result.sections.push(rts);
+                                
+                // Apply the modifications of this piece: first move then rotate
+                result.box = Geometry.addBoxes(result.box, Geometry.apply(piece.box, matrix));
+                matrix = Matrix.compose2D(move, matrix);
+                matrix = Matrix.compose2D(Matrix.rotation(0, 0, piece.rotation), matrix);
+            }
+            return result;
+        }
+    }
+    
+    export function section (piece: Pieces.ITrackPiece, rotate: boolean = false): ITrackSection {
+        return new DefaultTrackSection(piece, rotate);
     }
 }

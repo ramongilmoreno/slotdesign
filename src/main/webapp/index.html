@@ -25,6 +25,21 @@
 				</svg>
 				<p>{{piece.name}}</p>
 			</div>
+			
+			
+			<svg
+				width="1000"
+				height="1000"
+				viewBox="-2000 -2000 4000 4000"
+				preserveAspectRatio="xMidYMid meet"
+			>
+				<path
+					ng-repeat="section in slotdesign.follow.sections"
+					d="M 0,0 {{section.path}}"
+					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
+					stroke="gray" stroke-width="3"
+				/>
+			</svg>
   		</ul>
   		<script>
   			console.log("Simple matrix", new Matrix.Matrix2D().toString());

@@ -86,6 +86,12 @@ module Matrix {
                 return super.defaultValue(row, column);
             }
         }
+        public get a(): number { return this.getValue(0, 0); }
+        public get b(): number { return this.getValue(1, 0); }
+        public get c(): number { return this.getValue(0, 1); }
+        public get d(): number { return this.getValue(1, 1); }
+        public get e(): number { return this.getValue(0, 2); }
+        public get f(): number { return this.getValue(1, 2); }
     }
     
     export function compose2D (a: Matrix2D, b: Matrix2D): Matrix2D {

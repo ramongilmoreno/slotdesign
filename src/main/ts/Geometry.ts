@@ -67,7 +67,7 @@ module Geometry {
         return new DefaultBox(new DefaultCoordinates(minX, minY), new DefaultCoordinates(maxX, maxY));
     }
 
-    export function rotate(box: IBox, center: ICoordinates, phi: number): IBox {
+    export function apply(box: IBox, matrix: Matrix.Matrix2D): IBox {
         var coords: Matrix.Point2D[] = [
             new Matrix.Point2D(box.topLeft.x, box.topLeft.y),
             new Matrix.Point2D(box.bottomRight.x, box.topLeft.y),
@@ -75,10 +75,9 @@ module Geometry {
             new Matrix.Point2D(box.topLeft.x, box.bottomRight.y)
         ];
 
-        var m: Matrix.Matrix2D = Matrix.rotation(center.x, center.y, -phi);
         for (var i = 0; i < coords.length; i++) {
 //            console.log("Coordinates before rotation: ", coords[i].toString());
-            coords[i] = Matrix.apply2D(m, coords[i]);
+            coords[i] = Matrix.apply2D(matrix, coords[i]);
 //            console.log("Coordinates after rotation: ", coords[i].toString());
         }
 
@@ -89,5 +88,9 @@ module Geometry {
         }
 
         return r;
+    }
+
+    export function rotate(box: IBox, center: ICoordinates, phi: number): IBox {
+        return apply(box, Matrix.rotation(center.x, center.y, -phi));
     }
 }
