@@ -254,14 +254,47 @@ module Pieces {
     export class RenderedTrack {
         public box: Geometry.IBox = new Geometry.DefaultBox();
         public sections: RenderedTrackSection[] = [];
+        public error: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
     }
     
     export class DefaultTrack extends DefaultIdentified {
         pieces: ITrackSection[] = [];
         
         public follow (): RenderedTrack {
-            var result: RenderedTrack = new RenderedTrack();
+            // Compute error at closing track 
             var matrix: Matrix.Matrix2D = new Matrix.Matrix2D();
+            for (var i = 0; i < this.pieces.length; i++) {
+                var section: ITrackSection = this.pieces[i];
+                var piece: ITrackPiece = section.piece;
+                var move: Matrix.Matrix2D = undefined;
+                if (section.rotate) {
+                    // Compose a rotation and translation of the piece
+                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, Math.PI - piece.rotation);
+                    var translatedPoint: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D(piece.offset.x, piece.offset.y));
+                    var translation: Matrix.Matrix2D = Matrix.translation(-translatedPoint.x, -translatedPoint.y);
+                    var composition: Matrix.Matrix2D = Matrix.compose2D(translation, rotation);
+                    matrix = Matrix.compose2D(matrix, composition);
+                    
+                    // Apply composition to translated point
+                    translatedPoint = Matrix.apply2D(composition, new Matrix.Point2D(piece.offset.x, piece.offset.y));
+                    move = Matrix.translation(translatedPoint.x, translatedPoint.y);
+                } else {
+                    move = Matrix.translation(piece.offset.x, piece.offset.y);
+                }
+                
+                // Apply the modifications of this piece: first move then rotate
+                matrix = Matrix.compose2D(matrix, move);
+                matrix = Matrix.compose2D(matrix, Matrix.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
+            }
+            var error: Matrix.Point2D = Matrix.apply2D(matrix, new Matrix.Point2D(0, 0));
+            var dx: number = -error.x / (this.pieces.length - 1);
+            var dy: number = -error.y / (this.pieces.length - 1);
+            
+            // Render 
+            var result: RenderedTrack = new RenderedTrack();
+            result.error.x = error.x;
+            result.error.y = error.y;
+            matrix = new Matrix.Matrix2D();
             for (var i = 0; i < this.pieces.length; i++) {
                 var section: ITrackSection = this.pieces[i];
                 var piece: ITrackPiece = section.piece;
@@ -293,6 +326,9 @@ module Pieces {
                 result.box = Geometry.addBoxes(result.box, Geometry.apply(piece.box, matrix));
                 matrix = Matrix.compose2D(matrix, move);
                 matrix = Matrix.compose2D(matrix, Matrix.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
+                
+                // Compose with error fix
+                matrix = Matrix.compose2D(Matrix.translation(dx, dy), matrix);
             }
             return result;
         }
