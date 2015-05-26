@@ -11,6 +11,8 @@ var pright = Pieces.section(Ninco.ByRef["10105"]);
 var pleft = Pieces.section(Ninco.ByRef["10105"], true);
 var uright = Pieces.section(Ninco.ByRef["10115"]);
 var uleft = Pieces.section(Ninco.ByRef["10115"], true);
+var oright = Pieces.section(Ninco.ByRef["10107"]);
+var ileft = Pieces.section(Ninco.ByRef["10106"], true);
 
 
 function add (section: Pieces.ITrackSection, count: number = 1) {
@@ -48,13 +50,14 @@ add2(pright, 2);
 add2(pleft);
 add2(plane40);
 add2(plane10);
+add2(ileft, 8);
 add2(plane20);
 add2(plane10);
 add2(pleft, 2);
 add2(pright);
 add2(pleft, 3);
 add2(plane10, 4);
-add2(uright, 32)
+add2(oright, 16)
 add2(plane40);
 add2(pleft, 2);
 add2(pright, 3);
