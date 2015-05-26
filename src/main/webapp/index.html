@@ -28,18 +28,20 @@
         </p>
         <p>
 			<svg
-				width="1000"
-				height="1000"
+				width="1200"
+				height="1200"
 				viewBox="{{slotdesign.follow.box.topLeft.x}} {{slotdesign.follow.box.topLeft.y}} {{slotdesign.follow.box.bottomRight.x - slotdesign.follow.box.topLeft.x + 20}} {{slotdesign.follow.box.bottomRight.y - slotdesign.follow.box.topLeft.y + 20}}"
 				preserveAspectRatio="xMidYMid meet"
 				style="border: 1px solid;"
 			>
-				<path
+				<g
 					ng-repeat="section in slotdesign.follow.sections"
-					d="M 0,0 {{section.path}}"
 					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
-					stroke="gray" stroke-width="3"
-				/>
+				>
+					<path d="M 0,0 {{section.path}}" stroke="gray" stroke-width="3"/>
+					<path d="M 0,0 {{section.leftLane}}" stroke="white" stroke-width="12"/>
+					<path d="M 0,0 {{section.rightLane}}" stroke="white" stroke-width="12"/>
+				</g>
 			</svg>
   		</p>
   		<script>

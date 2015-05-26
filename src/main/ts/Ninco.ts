@@ -41,8 +41,7 @@ module Ninco {
     
     // http://www.ninco.com/product/9/0/0/1/2/2-X-INNER-CURVE.htm
     // Interior           6.15              10.65             19.65             24.15
-//    var baseRadius: number = 61.5;
-    var baseRadius: number = 60;
+    var baseRadius: number = 61.5;
     register(curve("10106", "INNER CURVE", "Inner curve 45 degrees", baseRadius + (0 * WIDTH), Math.PI / 4));
     // http://www.ninco.com/product/8/0/0/1/2/2-X-STANDARD-CURVE.htm
     // Standard          24.15              28.65             37.65             42.15

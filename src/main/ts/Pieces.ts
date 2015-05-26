@@ -24,6 +24,20 @@ module Pieces {
         get description(): string { return this._description; }
         set description(description: string) { this._description = description; }
     }
+    
+    export interface Lane {
+        length: number;
+        svgPath: string;
+    }
+    
+    export class DefaultLane implements Lane {
+        private _length: number;
+        private _svgPath: string;
+        get length (): number { return this._length; }
+        set length (length: number) { this._length = length; }
+        get svgPath (): string { return this._svgPath; }
+        set svgPath (svgPath: string) { this._svgPath = svgPath; }
+    }
 
     export interface ITrackPiece extends IIdentified {
         offset: Geometry.ICoordinates;
@@ -31,12 +45,14 @@ module Pieces {
         manufacturer: string;
         svgPath: string;
         box: Geometry.IBox;
+        lanes: Lane[];
     }
 
     export class AbstractTrackPiece extends DefaultIdentified {
         private _manufacturer: string;
         private _width: number;
         private _laneFromCenter: number;
+        public lanes: Lane[] = [ new DefaultLane(), new DefaultLane() ];
         constructor(id: string, name: string, description: string, manufacturer: string, width: number, laneFromCenter: number) {
             super(id, name, description);
             this._manufacturer = manufacturer;
@@ -58,6 +74,11 @@ module Pieces {
         constructor(id: string, name: string, description: string, manufacturer: string, length: number, width: number, laneFromCenter: number) {
             super(id, name, description, manufacturer, width, laneFromCenter);
             this._length = length;
+            
+            // Compute lanes
+            var w2: number = laneFromCenter;
+            this.lanes[0].svgPath = "m " + (-w2) + ",0 l 0," + length + " m " +   w2  + "," + (-length);
+            this.lanes[1].svgPath = "m " +   w2  + ",0 l 0," + length + " m " + (-w2) + "," + (-length);
         }
 
         get length(): number { return this._length; }
@@ -95,6 +116,33 @@ module Pieces {
             super(id, name, description, manufacturer, width, laneFromCenter);
             this._innerRadius = innerRadius;
             this._arc = arc;
+            
+            var arc2 = this._arc % (2 * Math.PI);
+            if (arc2 < 0) {
+                arc2 += (2 * Math.PI);
+            }
+
+            var w: number = this.width;
+            var w2: number = Math.round(w / 2.0);
+            var outerRadius = this._innerRadius + w2 + laneFromCenter;
+            var outerSin: number = Math.sin(arc2) * outerRadius;
+            var outerCos: number = Math.cos(arc2) * outerRadius;
+            var innerRadius = this._innerRadius + w2 - laneFromCenter;
+            var innerSin: number = Math.sin(arc2) * innerRadius;
+            var innerCos: number = Math.cos(arc2) * innerRadius;
+
+            // inner vertex
+            // innerCos
+            // innerSin
+
+            // outer vertex
+            // outerCos
+            // outerSin
+            
+            // a <x radius>,<y radius> 0 0,1 <end x>,<end y>
+            this.lanes[0].svgPath = "m " + (-laneFromCenter) + ",0 a " + innerRadius + "," + innerRadius + " 0 0,1 " +  (innerCos - innerRadius) + "," + innerSin + " m " + (-(innerCos - innerRadius)) + "," + (-innerSin);
+            this.lanes[1].svgPath = "m " + (+laneFromCenter) + ",0 a " + outerRadius + "," + outerRadius + " 0 0,1 " +  (outerCos - outerRadius) + "," + outerSin + " m " + (-(outerCos - outerRadius)) + "," + (-outerSin);
+
         }
         get offset(): Geometry.ICoordinates {
             var rotation = Matrix.rotation(- this._innerRadius - (this.width / 2), 0, this._arc);
@@ -172,7 +220,6 @@ module Pieces {
             }
             return new Geometry.DefaultBox(topLeft, bottomRight);
         }
-
     }
 
     export interface ITrackSection {
@@ -200,6 +247,8 @@ module Pieces {
     export class RenderedTrackSection {
         public matrix: Matrix.Matrix2D;
         public path: string;
+        public leftLane: string;
+        public rightLane: string;
     }
     
     export class RenderedTrack {
@@ -236,6 +285,8 @@ module Pieces {
                 var rts: RenderedTrackSection = new RenderedTrackSection();
                 rts.matrix = matrix;
                 rts.path = piece.svgPath;
+                rts.leftLane = piece.lanes[0].svgPath;
+                rts.rightLane = piece.lanes[1].svgPath;
                 result.sections.push(rts);
                                 
                 // Apply the modifications of this piece: first move then rotate
