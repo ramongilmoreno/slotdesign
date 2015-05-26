@@ -11,4 +11,4 @@ For development:
 
 Sample Ninco Starter Pro V4 track
 
-[![](NincoStarterProV4.svg)]
+[![](https://raw.githubusercontent.com/ramongilmoreno/slotdesign/master/NincoStarterProV4.svg)](http://www.ninco.com/product/8539/0/0/1/1/STARTER-SET-PRO-V4.htm?l=2)
