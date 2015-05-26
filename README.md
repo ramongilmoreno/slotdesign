@@ -1,8 +1,6 @@
 Slot cars track designer.
 
-
 Requires TypeScript
-
 
 For development:
 
