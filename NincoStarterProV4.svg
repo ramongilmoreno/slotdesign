@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="-1223.1382207447484 -2108.79550827013 1437.5910165402602 3037.59101654026" preserveAspectRatio="xMidYMid meet" style="border: 1px solid;">
+    <path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"></path>
+    <path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"></path>
+    <!-- ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(1,0,0,1,0,0)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(1,0,0,1,0,400)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(0.7071067811865476,0.7071067811865475,-0.7071067811865475,0.7071067811865476,-97.09410203665948,634.4058979633405)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(2.220446049250313e-16,1,-1,2.220446049250313e-16,-331.49999999999994,731.5)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-0.7071067811865474,0.7071067811865477,-0.7071067811865477,-0.7071067811865474,-565.9058979633405,634.4058979633405)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000001,400.00000000000006)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000002,5.684341886080802e-14)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000003,-399.99999999999994)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000005,-800)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000006,-1200)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,2.7755575615628914e-16,-2.7755575615628914e-16,-1,-663.0000000000007,-1600)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-0.7071067811865478,-0.7071067811865472,0.7071067811865472,-0.7071067811865478,-565.9058979633413,-1834.4058979633405)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-4.440892098500626e-16,-1,1,-4.440892098500626e-16,-331.5000000000009,-1931.5)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(0.7071067811865471,-0.7071067811865479,0.7071067811865479,0.7071067811865471,-97.09410203666036,-1834.4058979633405)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(1,-6.661338147750939e-16,6.661338147750939e-16,1,-7.247535904753022e-13,-1600)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(0.707106781186548,0.707106781186547,-0.707106781186547,0.707106781186548,-97.09410203666005,-1365.5941020366595)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(0.707106781186548,0.707106781186547,-0.707106781186547,0.707106781186548,-379.93681451127884,-1082.7513895620402)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(7.216449660063518e-16,1,-1,7.216449660063518e-16,-614.3427124746192,-985.6572875253805)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,100 l 180,0 l 0,-100 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,100 m 45,-100" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,100 m -45,-100" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-0.7071067811865481,-0.7071067811865469,0.7071067811865469,-0.7071067811865481,-948.7486104379597,-888.5631854887207)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1,1.1102230246251565e-15,-1.1102230246251565e-15,-1,-1045.8427124746188,-654.1572875253801)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-0.7071067811865466,0.7071067811865485,-0.7071067811865485,-0.7071067811865466,-948.748610437959,-419.7513895620397)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(1.5543122344752192e-15,1,-1,1.5543122344752192e-15,-714.3427124746183,-322.65728752538064)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1.6767769143899545e-15,-1,1,-1.6767769143899545e-15,-714.3427124746183,-322.65728752538064)" class="ng-scope">
+        <path d="M 0,0 l -90,0 l 0,400 l 180,0 l 0,-400 l -90,0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 l 0,400 m 45,-400" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 l 0,400 m -45,-400" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(-1.6767769143899545e-15,-1,1,-1.6767769143899545e-15,-314.34271247461834,-322.6572875253813)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections --><g ng-repeat="section in slotdesign.follow.sections" transform="matrix(0.7071067811865462,-0.7071067811865488,0.7071067811865488,0.7071067811865462,-79.93681451127767,-225.56318548872224)" class="ng-scope">
+        <path d="M 0,0 l -90,0 a 241.5,241.5 0 0,1 -70.73371234344876,170.7662876565512 l 127.27922061357856,127.27922061357853 a 421.5,421.5 0 0,0 123.4544917298702,-298.04550827012974 l -90, 0" stroke="gray" stroke-width="3"></path>
+        <path d="M 0,0 m -45,0 a 286.5,286.5 0 0,1 -83.91390719005412,202.58609280994585 m 83.91390719005412,-202.58609280994585" stroke="white" stroke-width="12"></path>
+        <path d="M 0,0 m 45,0 a 376.5,376.5 0 0,1 -110.27429688326487,266.22570311673513 m 110.27429688326487,-266.22570311673513" stroke="white" stroke-width="12"></path>
+    </g><!-- end ngRepeat: section in slotdesign.follow.sections -->
+</svg>
