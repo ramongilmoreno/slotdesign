@@ -34,8 +34,30 @@
 				preserveAspectRatio="xMidYMid meet"
 				style="border: 1px solid;"
 			>
+				<path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"/>
+				<path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"/>
 				<g
 					ng-repeat="section in slotdesign.follow.sections"
+					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
+				>
+					<path d="M 0,0 {{section.path}}" stroke="gray" stroke-width="3"/>
+					<path d="M 0,0 {{section.leftLane}}" stroke="white" stroke-width="12"/>
+					<path d="M 0,0 {{section.rightLane}}" stroke="white" stroke-width="12"/>
+				</g>
+			</svg>
+  		</p>
+        <p>
+			<svg
+				width="1200"
+				height="1200"
+				viewBox="{{slotdesign.follow2.box.topLeft.x}} {{slotdesign.follow2.box.topLeft.y}} {{slotdesign.follow2.box.bottomRight.x - slotdesign.follow2.box.topLeft.x + 20}} {{slotdesign.follow2.box.bottomRight.y - slotdesign.follow2.box.topLeft.y + 20}}"
+				preserveAspectRatio="xMidYMid meet"
+				style="border: 1px solid;"
+			>
+				<path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"/>
+				<path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"/>
+				<g
+					ng-repeat="section in slotdesign.follow2.sections"
 					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
 				>
 					<path d="M 0,0 {{section.path}}" stroke="gray" stroke-width="3"/>
