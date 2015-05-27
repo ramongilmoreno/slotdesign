@@ -23,6 +23,7 @@
 					preserveAspectRatio="xMidYMid meet"
 				>
 						<path d="M 0,0 {{piece.svgPath}}" stroke="gray" stroke-width="3"/>
+						<path d="M 0,0 {{piece.lanes[0].svgPath}} {{piece.lanes[1].svgPath}}" stroke="white" fill="white"/>
 				</svg>
 			</div>
         </p>
@@ -41,8 +42,7 @@
 					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
 				>
 					<path d="M 0,0 {{section.path}}" stroke="gray" stroke-width="3"/>
-					<path d="M 0,0 {{section.leftLane}}" stroke="white" stroke-width="12"/>
-					<path d="M 0,0 {{section.rightLane}}" stroke="white" stroke-width="12"/>
+					<path d="M 0,0 {{section.leftLane}} {{section.rightLane}}" stroke="white" fill="white"/>
 				</g>
 			</svg>
   		</p>
@@ -61,8 +61,7 @@
 					transform="matrix({{section.matrix.a}},{{section.matrix.b}},{{section.matrix.c}},{{section.matrix.d}},{{section.matrix.e}},{{section.matrix.f}})"
 				>
 					<path d="M 0,0 {{section.path}}" stroke="gray" stroke-width="3"/>
-					<path d="M 0,0 {{section.leftLane}}" stroke="white" stroke-width="12"/>
-					<path d="M 0,0 {{section.rightLane}}" stroke="white" stroke-width="12"/>
+					<path d="M 0,0 {{section.leftLane}} {{section.rightLane}}" stroke="white" fill="white"/>
 				</g>
 			</svg>
   		</p>

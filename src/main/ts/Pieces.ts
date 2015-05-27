@@ -2,6 +2,9 @@
 
 module Pieces {
     
+    export var SLOT_WIDTH: number = 6;
+    export var SLOT_METAL_WIDTH: number = 4;
+    
     export interface IIdentified {
         id: string;
         name: string;
@@ -77,8 +80,13 @@ module Pieces {
             
             // Compute lanes
             var w2: number = laneFromCenter;
-            this.lanes[0].svgPath = "m " + (-w2) + ",0 l 0," + length + " m " +   w2  + "," + (-length);
-            this.lanes[1].svgPath = "m " +   w2  + ",0 l 0," + length + " m " + (-w2) + "," + (-length);
+            var slotWidth2: number = SLOT_WIDTH / 2;
+            this.lanes[0].svgPath =
+                "m " + (-w2 - slotWidth2) + ",0 l " + (-SLOT_METAL_WIDTH) + ",0 l 0," + length + " l " +  SLOT_METAL_WIDTH  + ",0 l 0," + (-length) + "z m " + (w2 + slotWidth2) + ", 0 " +
+                "m " + (-w2 + slotWidth2) + ",0 l " + (SLOT_METAL_WIDTH) + ",0 l 0," + length + " l " +  (-SLOT_METAL_WIDTH)  + ",0 l 0," + (-length) + "z m " + (w2 - slotWidth2) + ", 0 ";
+            this.lanes[1].svgPath =
+                "m " + (w2 - slotWidth2) + ",0 l " + (-SLOT_METAL_WIDTH) + ",0 l 0," + length + " l " +  SLOT_METAL_WIDTH  + ",0 l 0," + (-length) + "z m " + (-w2 + slotWidth2) + ", 0 " +
+                "m " + (w2 + slotWidth2) + ",0 l " + (SLOT_METAL_WIDTH) + ",0 l 0," + length + " l " +  (-SLOT_METAL_WIDTH)  + ",0 l 0," + (-length) + "z m " + (-w2 - slotWidth2) + ", 0 ";
         }
 
         get length(): number { return this._length; }
@@ -117,32 +125,43 @@ module Pieces {
             this._innerRadius = innerRadius;
             this._arc = arc;
             
-            var arc2 = this._arc % (2 * Math.PI);
-            if (arc2 < 0) {
-                arc2 += (2 * Math.PI);
+            function f (offset: number, innerRadius: number, width: number, arcarg: number) {
+                var arc = arcarg % (2 * Math.PI);
+                if (arc < 0) {
+                    arc += (2 * Math.PI);
+                }
+    
+                var w: number = width;
+                var w2: number = Math.round(w / 2.0);
+                var outerRadius = innerRadius + w;
+                var outerSin: number = Math.sin(arc) * outerRadius;
+                var outerCos: number = Math.cos(arc) * outerRadius;
+                var innerSin: number = Math.sin(arc) * innerRadius;
+                var innerCos: number = Math.cos(arc) * innerRadius;
+    
+                // inner vertex
+                // innerCos
+                // innerSin
+    
+                // outer vertex
+                // outerCos
+                // outerSin
+                
+                // a <x radius>,<y radius> 0 0,1 <end x>,<end y>
+                return "m " + offset + ",0 l " + (-w2) + ",0" +
+                    " a " + innerRadius + "," + innerRadius + " 0 0,1 " + (innerCos - innerRadius) + "," + innerSin +
+                    " l " + (outerCos - innerCos) + "," + -(-outerSin + innerSin) +
+                    " a " + outerRadius + "," + outerRadius + " 0 0,0 " + (outerRadius - outerCos) + "," + -outerSin +
+                    " l " + (-w2) + ",0 m " + (-offset) + ",0"
+                    // reveal the bbox for debugging purposes
+                    // + " m " + box.topLeft.x + "," + box.topLeft.y + " l " + (box.bottomRight.x - box.topLeft.x) + "," + (box.bottomRight.y - box.topLeft.y)
+                    ;
             }
-
-            var w: number = this.width;
-            var w2: number = Math.round(w / 2.0);
-            var outerRadius = this._innerRadius + w2 + laneFromCenter;
-            var outerSin: number = Math.sin(arc2) * outerRadius;
-            var outerCos: number = Math.cos(arc2) * outerRadius;
-            var innerRadius = this._innerRadius + w2 - laneFromCenter;
-            var innerSin: number = Math.sin(arc2) * innerRadius;
-            var innerCos: number = Math.cos(arc2) * innerRadius;
-
-            // inner vertex
-            // innerCos
-            // innerSin
-
-            // outer vertex
-            // outerCos
-            // outerSin
             
-            // a <x radius>,<y radius> 0 0,1 <end x>,<end y>
-            this.lanes[0].svgPath = "m " + (-laneFromCenter) + ",0 a " + innerRadius + "," + innerRadius + " 0 0,1 " +  (innerCos - innerRadius) + "," + innerSin + " m " + (-(innerCos - innerRadius)) + "," + (-innerSin);
-            this.lanes[1].svgPath = "m " + (+laneFromCenter) + ",0 a " + outerRadius + "," + outerRadius + " 0 0,1 " +  (outerCos - outerRadius) + "," + outerSin + " m " + (-(outerCos - outerRadius)) + "," + (-outerSin);
-
+            this.lanes[0].svgPath = "" + f(-laneFromCenter - (SLOT_WIDTH / 2) - (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) - laneFromCenter - (SLOT_WIDTH / 2) - SLOT_METAL_WIDTH, SLOT_METAL_WIDTH, arc) +
+                    " " + f(-laneFromCenter + (SLOT_WIDTH / 2) + (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) - laneFromCenter + (SLOT_WIDTH / 2), SLOT_METAL_WIDTH, arc);
+            this.lanes[1].svgPath = "" + f(laneFromCenter - (SLOT_WIDTH / 2) - (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) + laneFromCenter - (SLOT_WIDTH / 2) - SLOT_METAL_WIDTH, SLOT_METAL_WIDTH, arc) +
+                    " " + f(laneFromCenter + (SLOT_WIDTH / 2) + (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) + laneFromCenter + (SLOT_WIDTH / 2), SLOT_METAL_WIDTH, arc);
         }
         get offset(): Geometry.ICoordinates {
             var rotation = Matrix.rotation(- this._innerRadius - (this.width / 2), 0, this._arc);
