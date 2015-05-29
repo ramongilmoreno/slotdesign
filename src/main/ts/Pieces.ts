@@ -10,12 +10,23 @@ module Pieces {
         name: string;
         description: string;
     }
+    
+    // http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+    function uuid(){
+        var d = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (d + Math.random()*16)%16 | 0;
+            d = Math.floor(d/16);
+            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+    };
 
     export class DefaultIdentified {
         private _id: string;
         private _name: string;
         private _description: string;
-        constructor(id: string, name: string, description: string) {
+        constructor(id: string = uuid(), name: string = "Unknown", description: string = "Unknown description") {
             this._id = id;
             this._name = name;
             this._description = description;
@@ -241,15 +252,16 @@ module Pieces {
         }
     }
 
-    export interface ITrackSection {
+    export interface ITrackSection extends IIdentified {
         piece: ITrackPiece;
         rotate: boolean;
     }
 
-    export class DefaultTrackSection implements ITrackSection {
+    export class DefaultTrackSection extends DefaultIdentified implements ITrackSection {
         private _piece: ITrackPiece;
         private _rotate: boolean;
         constructor(piece: ITrackPiece = undefined, rotate: boolean = false) {
+            super();
             this._piece = piece;
             this._rotate = rotate;
         }
@@ -261,6 +273,7 @@ module Pieces {
 
     export interface ITrack extends IIdentified {
         pieces: ITrackSection[];
+        follow (): RenderedTrack;
     }
 
     export class RenderedTrackSection {

@@ -1,8 +1,10 @@
 /// <reference path="Pieces"/>
 /// <reference path="Ninco"/>
+/// <reference path="Editor"/>
 
 var track = new Pieces.DefaultTrack("sample", "Sample track", "Early test of track");
 var track2 = new Pieces.DefaultTrack("precision test", "Precision test", "Test accumulation of errors");
+
 
 var plane40 = Pieces.section(Ninco.ByRef["10102"]);
 var plane20 = Pieces.section(Ninco.ByRef["10103"]);
@@ -14,6 +16,37 @@ var uleft = Pieces.section(Ninco.ByRef["10115"], true);
 var oright = Pieces.section(Ninco.ByRef["10107"]);
 var ileft = Pieces.section(Ninco.ByRef["10106"], true);
 
+var rawEditValue: string = "";
+
+var editor: Editor.Status = new Editor.Status();
+
+function render () {
+    editor.track.pieces = [];
+    for (var i = 0; i < rawEditValue.length; i++) {
+        var c = rawEditValue[i];
+        var section: Pieces.ITrackSection = undefined;
+        switch (c) {
+            case 'w': section = plane40; break;
+            case 'a': section = pleft; break;
+            case 's': section = plane10; break;
+            case 'd': section = pright; break;
+        }
+        if (section != undefined) {
+            editor.insert(section);
+        }
+    }
+    slotdesign.followEditor = editor.track.follow();
+}
+
+function rawEdit (value: string) {
+    if (rawEditValue != value) {
+        rawEditValue = value;
+        render();
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function add (section: Pieces.ITrackSection, count: number = 1) {
     for (var i = 0; i < count; i++) {
@@ -73,5 +106,7 @@ var slotdesign = {
     track: track,
     follow: track.follow(),
     track2: track2,
-    follow2: track2.follow()
+    follow2: track2.follow(),
+    editor: editor,
+    followEditor: editor.track.follow()
 };
