@@ -321,7 +321,7 @@ module Pieces {
             var error: Matrix.Point2D = Matrix.apply2D(matrix, new Matrix.Point2D(0, 0));
             var dx: number = -error.x / (this.pieces.length - 1);
             var dy: number = -error.y / (this.pieces.length - 1);
-            var applyd: boolean = (dx < 2) && (dy < 2);
+            var applyd: boolean = (Math.abs(dx) < 2) && (Math.abs(dy) < 2);
             
             // Render 
             var result: RenderedTrack = new RenderedTrack();
