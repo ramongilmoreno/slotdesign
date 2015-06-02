@@ -5,14 +5,25 @@
     	<title>Slot track editor</title>
     	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<style>
-		p, h2 {
-			font-family: Verdana, helvetica, arial;
-		}
-		</style>
+        <!-- http://www.w3schools.com/cssref/pr_background-image.asp -->
+        <!-- https://css-tricks.com/perfect-full-page-background-image/ -->
+        <style>
+            html { 
+              background: url("background.gif") no-repeat center center fixed; 
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
+            }
+
+            p, h2 {
+                font-family: Verdana, helvetica, arial;
+                color: darkgray;
+            }
+        </style>
     </head>
     <body ng-controller="slotdesignController">
-    	<script type="text/javascript" src="Matrix.js"></script>
+    	<script type="text/javascript" src="Matrices.js"></script>
     	<script type="text/javascript" src="Geometry.js"></script>
     	<script type="text/javascript" src="Pieces.js"></script>
     	<script type="text/javascript" src="Ninco.js"></script>
@@ -20,16 +31,15 @@
     	<script type="text/javascript" src="Main.js"></script>
     	<script type="text/javascript" src="angular.js"></script>
 
+		<div style="width: 90vw; margin: 0 auto;">
 		<h2>Track editor</h2>
-		<p>Use wasd cursor keys to add pieces to the track (w = long straight, a = left turn, s = short straight, d = right turn). Edit the text field to clear or fix errors.</p>
+		<p>Use WASD cursor keys to add pieces to the track (w = long straight, a = left turn, s = short straight, d = right turn). Edit the text field to clear or fix errors.</p>
 		<input type="text" id="inputField" size="70"/>
         <p>
 			<svg
-				width="1200"
-				height="1200"
 				viewBox="{{slotdesign.followEditor.box.topLeft.x}} {{slotdesign.followEditor.box.topLeft.y}} {{slotdesign.followEditor.box.bottomRight.x - slotdesign.followEditor.box.topLeft.x + 20}} {{slotdesign.followEditor.box.bottomRight.y - slotdesign.followEditor.box.topLeft.y + 20}}"
 				preserveAspectRatio="xMidYMid meet"
-				style="border: 1px solid;"
+				style="border: 1px solid; background-color: white; width: 100%; height: 80vh;"
 			>
 				<path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"/>
 				<path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"/>
@@ -58,11 +68,9 @@
         </p>
         <p>
 			<svg
-				width="1200"
-				height="1200"
 				viewBox="{{slotdesign.follow.box.topLeft.x}} {{slotdesign.follow.box.topLeft.y}} {{slotdesign.follow.box.bottomRight.x - slotdesign.follow.box.topLeft.x + 20}} {{slotdesign.follow.box.bottomRight.y - slotdesign.follow.box.topLeft.y + 20}}"
 				preserveAspectRatio="xMidYMid meet"
-				style="border: 1px solid;"
+				style="border: 1px solid; background-color: white; width: 100%; height: 80vh;"
 			>
 				<path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"/>
 				<path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"/>
@@ -77,11 +85,9 @@
   		</p>
         <p>
 			<svg
-				width="1200"
-				height="1200"
 				viewBox="{{slotdesign.follow2.box.topLeft.x}} {{slotdesign.follow2.box.topLeft.y}} {{slotdesign.follow2.box.bottomRight.x - slotdesign.follow2.box.topLeft.x + 20}} {{slotdesign.follow2.box.bottomRight.y - slotdesign.follow2.box.topLeft.y + 20}}"
 				preserveAspectRatio="xMidYMid meet"
-				style="border: 1px solid;"
+				style="border: 1px solid; background-color: white; width: 100%; height: 80vh;"
 			>
 				<path d="M 0,0 l -150,0 l 20,-50 l 20, 50 z" stroke="black" fill="red" stroke-width="3"/>
 				<path d="M 0,0 l  150,0 l -20, 50 l -20,-50 z" stroke="black" fill="red" stroke-width="3"/>
@@ -110,5 +116,6 @@
   					Math.PI / 2
   				).toString());
   		</script>
+  		</div>
     </body>
 </html>

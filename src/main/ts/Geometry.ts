@@ -1,13 +1,13 @@
-/// <reference path="Matrix"/>
+/// <reference path="Matrices"/>
 
 module Geometry {
 
-    export interface ICoordinates {
+    export interface Coordinates {
         x: number;
         y: number;
     }
 
-    export class DefaultCoordinates implements ICoordinates {
+    export class DefaultCoordinates implements Coordinates {
         private _x: number = 0;
         private _y: number = 0;
         constructor(x: number = 0, y: number = 0) { this._x = x; this._y = y; }
@@ -18,26 +18,26 @@ module Geometry {
         public toString () { return "(" + this.x + ", " + this.y + ")"; }
     }
 
-    export interface IBox {
-        topLeft: ICoordinates;
-        bottomRight: ICoordinates;
+    export interface Box {
+        topLeft: Coordinates;
+        bottomRight: Coordinates;
     }
 
-    export class DefaultBox implements IBox {
-        private _topLeft: ICoordinates;
-        private _bottomRight: ICoordinates;
-        constructor(topLeft: ICoordinates = new DefaultCoordinates(), bottomRight: ICoordinates = new DefaultCoordinates()) { this._topLeft = topLeft; this._bottomRight = bottomRight; }
-        get topLeft(): ICoordinates { return this._topLeft; }
-        set topLeft(topLeft: ICoordinates) { this._topLeft = topLeft; }
-        get bottomRight(): ICoordinates { return this._bottomRight; }
-        set bottomRight(bottomRight: ICoordinates) { this._bottomRight = bottomRight; }
+    export class DefaultBox implements Box {
+        private _topLeft: Coordinates;
+        private _bottomRight: Coordinates;
+        constructor(topLeft: Coordinates = new DefaultCoordinates(), bottomRight: Coordinates = new DefaultCoordinates()) { this._topLeft = topLeft; this._bottomRight = bottomRight; }
+        get topLeft(): Coordinates { return this._topLeft; }
+        set topLeft(topLeft: Coordinates) { this._topLeft = topLeft; }
+        get bottomRight(): Coordinates { return this._bottomRight; }
+        set bottomRight(bottomRight: Coordinates) { this._bottomRight = bottomRight; }
          public toString () { return "[" + this.topLeft + ", " + this.bottomRight + "]"; }
     }
 
-    export function addCoordinatesToBox(box: IBox, coordinates: ICoordinates): IBox {
+    export function addCoordinatesToBox(box: Box, coordinates: Coordinates): Box {
 //        console.log("Box before: ", box.toString());
 //        console.log("Coordinates before", coordinates.toString());
-        var r: IBox = new DefaultBox(box.topLeft, box.bottomRight);
+        var r: Box = new DefaultBox(box.topLeft, box.bottomRight);
         var x: number = coordinates.x;
         var y: number = coordinates.y;
         
@@ -50,14 +50,14 @@ module Geometry {
         return r;
     }
     
-    export function addBoxes(a: IBox, b: IBox): IBox {
+    export function addBoxes(a: Box, b: Box): Box {
         var minX: number = a.topLeft.x;
         var minY: number = a.topLeft.y;
         var maxX: number = a.topLeft.x;
         var maxY: number = a.topLeft.y;
-        var coords: ICoordinates[] = [a.bottomRight, b.topLeft, b.bottomRight];
+        var coords: Coordinates[] = [a.bottomRight, b.topLeft, b.bottomRight];
         for (var i = 0; i < coords.length; i++) {
-            var c: ICoordinates = coords[i];
+            var c: Coordinates = coords[i];
             minX = Math.min(c.x, minX);
             minY = Math.min(c.y, minY);
             maxX = Math.max(c.x, maxX);
@@ -67,21 +67,21 @@ module Geometry {
         return new DefaultBox(new DefaultCoordinates(minX, minY), new DefaultCoordinates(maxX, maxY));
     }
 
-    export function apply(box: IBox, matrix: Matrix.Matrix2D): IBox {
-        var coords: Matrix.Point2D[] = [
-            new Matrix.Point2D(box.topLeft.x, box.topLeft.y),
-            new Matrix.Point2D(box.bottomRight.x, box.topLeft.y),
-            new Matrix.Point2D(box.bottomRight.x, box.bottomRight.y),
-            new Matrix.Point2D(box.topLeft.x, box.bottomRight.y)
+    export function apply(box: Box, matrix: Matrices.Matrix2D): Box {
+        var coords: Matrices.Point2D[] = [
+            new Matrices.Point2D(box.topLeft.x, box.topLeft.y),
+            new Matrices.Point2D(box.bottomRight.x, box.topLeft.y),
+            new Matrices.Point2D(box.bottomRight.x, box.bottomRight.y),
+            new Matrices.Point2D(box.topLeft.x, box.bottomRight.y)
         ];
 
         for (var i = 0; i < coords.length; i++) {
 //            console.log("Coordinates before rotation: ", coords[i].toString());
-            coords[i] = Matrix.apply2D(matrix, coords[i]);
+            coords[i] = Matrices.apply2D(matrix, coords[i]);
 //            console.log("Coordinates after rotation: ", coords[i].toString());
         }
 
-        var r: IBox = new DefaultBox(new DefaultCoordinates(coords[0].x, coords[0].y),
+        var r: Box = new DefaultBox(new DefaultCoordinates(coords[0].x, coords[0].y),
                 new DefaultCoordinates(coords[0].x, coords[0].y));
         for (var i = 1; i < coords.length; i++) {
             r = addCoordinatesToBox(r, new DefaultCoordinates(coords[i].x, coords[i].y));
@@ -90,7 +90,7 @@ module Geometry {
         return r;
     }
 
-    export function rotate(box: IBox, center: ICoordinates, phi: number): IBox {
-        return apply(box, Matrix.rotation(center.x, center.y, phi));
+    export function rotate(box: Box, center: Coordinates, phi: number): Box {
+        return apply(box, Matrices.rotation(center.x, center.y, phi));
     }
 }

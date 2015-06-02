@@ -54,11 +54,11 @@ module Pieces {
     }
 
     export interface ITrackPiece extends IIdentified {
-        offset: Geometry.ICoordinates;
+        offset: Geometry.Coordinates;
         rotation: number;
         manufacturer: string;
         svgPath: string;
-        box: Geometry.IBox;
+        box: Geometry.Box;
         lanes: Lane[];
     }
 
@@ -103,10 +103,10 @@ module Pieces {
         get length(): number { return this._length; }
         set length(length: number) { this._length = length; }
 
-        get offset(): Geometry.ICoordinates {
+        get offset(): Geometry.Coordinates {
             return new Geometry.DefaultCoordinates(0, this.length);
         }
-        set offset(offset: Geometry.ICoordinates) { console.log("Unsupported"); }
+        set offset(offset: Geometry.Coordinates) { console.log("Unsupported"); }
         get rotation(): number {
             return 0;
         }
@@ -119,11 +119,11 @@ module Pieces {
         }
         set svgPath(svgPath: string) { console.log("Unsupported"); }
 
-        get box(): Geometry.IBox {
+        get box(): Geometry.Box {
             var w2: number = Math.round(this.width / 2.0);
             return new Geometry.DefaultBox(new Geometry.DefaultCoordinates(-w2, 0), new Geometry.DefaultCoordinates(w2, this.length));
         }
-        set box(box: Geometry.IBox) { console.log("Unsupported"); }
+        set box(box: Geometry.Box) { console.log("Unsupported"); }
     }
 
     export class DefaultCurve extends AbstractTrackPiece implements ITrackPiece {
@@ -174,9 +174,9 @@ module Pieces {
             this.lanes[1].svgPath = "" + f(laneFromCenter - (SLOT_WIDTH / 2) - (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) + laneFromCenter - (SLOT_WIDTH / 2) - SLOT_METAL_WIDTH, SLOT_METAL_WIDTH, arc) +
                     " " + f(laneFromCenter + (SLOT_WIDTH / 2) + (SLOT_METAL_WIDTH / 2), innerRadius + (width / 2) + laneFromCenter + (SLOT_WIDTH / 2), SLOT_METAL_WIDTH, arc);
         }
-        get offset(): Geometry.ICoordinates {
-            var rotation = Matrix.rotation(- this._innerRadius - (this.width / 2), 0, this._arc);
-            var r: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D());
+        get offset(): Geometry.Coordinates {
+            var rotation = Matrices.rotation(- this._innerRadius - (this.width / 2), 0, this._arc);
+            var r: Matrices.Point2D = Matrices.apply2D(rotation, new Matrices.Point2D());
             return new Geometry.DefaultCoordinates(r.x, r.y);
         }
         get rotation(): number {
@@ -216,7 +216,7 @@ module Pieces {
                 ;
         }
         set svgPath(svgPath: string) { console.log("Unsupported"); }
-        get box(): Geometry.IBox {
+        get box(): Geometry.Box {
             var arc = this._arc % (2 * Math.PI);
             if (arc < 0) {
                 arc += (2 * Math.PI);
@@ -238,8 +238,8 @@ module Pieces {
             // outerCos
             // outerSin
 
-            var topLeft: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
-            var bottomRight: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
+            var topLeft: Geometry.Coordinates = new Geometry.DefaultCoordinates();
+            var bottomRight: Geometry.Coordinates = new Geometry.DefaultCoordinates();
             if (arc <= (Math.PI / 2)) {
                 topLeft.x = innerCos - this._innerRadius - w2 ;
                 topLeft.y = 0;
@@ -277,16 +277,16 @@ module Pieces {
     }
 
     export class RenderedTrackSection {
-        public matrix: Matrix.Matrix2D;
+        public matrix: Matrices.Matrix2D;
         public path: string;
         public leftLane: string;
         public rightLane: string;
     }
     
     export class RenderedTrack {
-        public box: Geometry.IBox = new Geometry.DefaultBox();
+        public box: Geometry.Box = new Geometry.DefaultBox();
         public sections: RenderedTrackSection[] = [];
-        public error: Geometry.ICoordinates = new Geometry.DefaultCoordinates();
+        public error: Geometry.Coordinates = new Geometry.DefaultCoordinates();
     }
     
     export class DefaultTrack extends DefaultIdentified {
@@ -294,31 +294,31 @@ module Pieces {
         
         public follow (): RenderedTrack {
             // Compute error at closing track 
-            var matrix: Matrix.Matrix2D = new Matrix.Matrix2D();
+            var matrix: Matrices.Matrix2D = new Matrices.Matrix2D();
             for (var i = 0; i < this.pieces.length; i++) {
                 var section: ITrackSection = this.pieces[i];
                 var piece: ITrackPiece = section.piece;
-                var move: Matrix.Matrix2D = undefined;
+                var move: Matrices.Matrix2D = undefined;
                 if (section.rotate) {
                     // Compose a rotation and translation of the piece
-                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, Math.PI - piece.rotation);
-                    var translatedPoint: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D(piece.offset.x, piece.offset.y));
-                    var translation: Matrix.Matrix2D = Matrix.translation(-translatedPoint.x, -translatedPoint.y);
-                    var composition: Matrix.Matrix2D = Matrix.compose2D(translation, rotation);
-                    matrix = Matrix.compose2D(matrix, composition);
+                    var rotation: Matrices.Matrix2D = Matrices.rotation(0, 0, Math.PI - piece.rotation);
+                    var translatedPoint: Matrices.Point2D = Matrices.apply2D(rotation, new Matrices.Point2D(piece.offset.x, piece.offset.y));
+                    var translation: Matrices.Matrix2D = Matrices.translation(-translatedPoint.x, -translatedPoint.y);
+                    var composition: Matrices.Matrix2D = Matrices.compose2D(translation, rotation);
+                    matrix = Matrices.compose2D(matrix, composition);
                     
                     // Apply composition to translated point
-                    translatedPoint = Matrix.apply2D(composition, new Matrix.Point2D(piece.offset.x, piece.offset.y));
-                    move = Matrix.translation(translatedPoint.x, translatedPoint.y);
+                    translatedPoint = Matrices.apply2D(composition, new Matrices.Point2D(piece.offset.x, piece.offset.y));
+                    move = Matrices.translation(translatedPoint.x, translatedPoint.y);
                 } else {
-                    move = Matrix.translation(piece.offset.x, piece.offset.y);
+                    move = Matrices.translation(piece.offset.x, piece.offset.y);
                 }
                 
                 // Apply the modifications of this piece: first move then rotate
-                matrix = Matrix.compose2D(matrix, move);
-                matrix = Matrix.compose2D(matrix, Matrix.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
+                matrix = Matrices.compose2D(matrix, move);
+                matrix = Matrices.compose2D(matrix, Matrices.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
             }
-            var error: Matrix.Point2D = Matrix.apply2D(matrix, new Matrix.Point2D(0, 0));
+            var error: Matrices.Point2D = Matrices.apply2D(matrix, new Matrices.Point2D(0, 0));
             var dx: number = -error.x / (this.pieces.length - 1);
             var dy: number = -error.y / (this.pieces.length - 1);
             var applyd: boolean = (Math.abs(dx) < 2) && (Math.abs(dy) < 2);
@@ -327,24 +327,24 @@ module Pieces {
             var result: RenderedTrack = new RenderedTrack();
             result.error.x = error.x;
             result.error.y = error.y;
-            matrix = new Matrix.Matrix2D();
+            matrix = new Matrices.Matrix2D();
             for (var i = 0; i < this.pieces.length; i++) {
                 var section: ITrackSection = this.pieces[i];
                 var piece: ITrackPiece = section.piece;
-                var move: Matrix.Matrix2D = undefined;
+                var move: Matrices.Matrix2D = undefined;
                 if (section.rotate) {
                     // Compose a rotation and translation of the piece
-                    var rotation: Matrix.Matrix2D = Matrix.rotation(0, 0, Math.PI - piece.rotation);
-                    var translatedPoint: Matrix.Point2D = Matrix.apply2D(rotation, new Matrix.Point2D(piece.offset.x, piece.offset.y));
-                    var translation: Matrix.Matrix2D = Matrix.translation(-translatedPoint.x, -translatedPoint.y);
-                    var composition: Matrix.Matrix2D = Matrix.compose2D(translation, rotation);
-                    matrix = Matrix.compose2D(matrix, composition);
+                    var rotation: Matrices.Matrix2D = Matrices.rotation(0, 0, Math.PI - piece.rotation);
+                    var translatedPoint: Matrices.Point2D = Matrices.apply2D(rotation, new Matrices.Point2D(piece.offset.x, piece.offset.y));
+                    var translation: Matrices.Matrix2D = Matrices.translation(-translatedPoint.x, -translatedPoint.y);
+                    var composition: Matrices.Matrix2D = Matrices.compose2D(translation, rotation);
+                    matrix = Matrices.compose2D(matrix, composition);
                     
                     // Apply composition to translated point
-                    translatedPoint = Matrix.apply2D(composition, new Matrix.Point2D(piece.offset.x, piece.offset.y));
-                    move = Matrix.translation(translatedPoint.x, translatedPoint.y);
+                    translatedPoint = Matrices.apply2D(composition, new Matrices.Point2D(piece.offset.x, piece.offset.y));
+                    move = Matrices.translation(translatedPoint.x, translatedPoint.y);
                 } else {
-                    move = Matrix.translation(piece.offset.x, piece.offset.y);
+                    move = Matrices.translation(piece.offset.x, piece.offset.y);
                 }
                 
                 // Save into current
@@ -357,12 +357,12 @@ module Pieces {
                                 
                 // Apply the modifications of this piece: first move then rotate
                 result.box = Geometry.addBoxes(result.box, Geometry.apply(piece.box, matrix));
-                matrix = Matrix.compose2D(matrix, move);
-                matrix = Matrix.compose2D(matrix, Matrix.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
+                matrix = Matrices.compose2D(matrix, move);
+                matrix = Matrices.compose2D(matrix, Matrices.rotation(0, 0, section.rotate ? Math.PI : piece.rotation));
                 
                 // Compose with error fix
                 if (applyd) {
-                    matrix = Matrix.compose2D(Matrix.translation(dx, dy), matrix);
+                    matrix = Matrices.compose2D(Matrices.translation(dx, dy), matrix);
                 }
             }
             return result;

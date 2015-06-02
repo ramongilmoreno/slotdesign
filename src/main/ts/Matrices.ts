@@ -1,13 +1,13 @@
-module Matrix {
+module Matrices {
 
-    export interface IMatrix<T> {
+    export interface Matrix<T> {
         rows: number;
         columns: number;
         getValue(row: number, column: number): T;
         setValue(row: number, column: number, value: T);
     }
 
-    export class DefaultMatrix<T> implements IMatrix<T> {
+    export class DefaultMatrix<T> implements Matrix<T> {
         private _rows: number;
         private _columns: number;
         private _data: T[][] = [];

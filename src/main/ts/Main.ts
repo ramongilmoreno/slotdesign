@@ -26,10 +26,10 @@ function render () {
         var c = rawEditValue[i];
         var section: Pieces.ITrackSection = undefined;
         switch (c) {
-            case 'w': section = plane40; break;
-            case 'a': section = pleft; break;
-            case 's': section = plane10; break;
-            case 'd': section = pright; break;
+            case 'w': case 'W': section = plane40; break;
+            case 'a': case 'A': section = pleft; break;
+            case 's': case 'S': section = plane10; break;
+            case 'd': case 'D': section = pright; break;
         }
         if (section != undefined) {
             editor.insert(section);

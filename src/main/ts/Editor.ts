@@ -30,10 +30,5 @@ module Editor {
                 index = this.index();
             }
         }
-        
     }
-    
-    
-    
-    
 }
