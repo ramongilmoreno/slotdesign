@@ -1,6 +1,7 @@
 /// <reference path="Pieces"/>
 /// <reference path="Ninco"/>
 /// <reference path="Editor"/>
+/// <reference path="Solve"/>
 
 var track = new Pieces.DefaultTrack("sample", "Sample track", "Early test of track");
 var track2 = new Pieces.DefaultTrack("precision test", "Precision test", "Test accumulation of errors");
@@ -110,3 +111,41 @@ var slotdesign = {
     editor: editor,
     followEditor: editor.track.follow()
 };
+
+
+var problem: Solve.Problem = new Solve.DefaultProblem();
+var createVariable = function (name: string, problem: Solve.Problem): Solve.Variable {
+    var r: Solve.Variable = new Solve.DefaultVariable();
+    r.name = name;
+    for (var i = 0; i < 10; i++) {
+        r.scope.values.push(i.toString());
+    }
+    problem.variables.push(r);
+    return r;
+}
+var variableA: Solve.Variable = createVariable("A", problem);
+var variableB: Solve.Variable = createVariable("B", problem);
+
+var heuristic = function (problem: Solve.Problem, status: Solve.Status): Solve.Status {
+    return null;
+}
+
+var goal = function (problem: Solve.Problem, status: Solve.Status): boolean {
+    return true;
+}
+
+var reportGoal = function (problem: Solve.Problem, status: Solve.Status, resume: Solve.Resume) {
+}
+
+var limit = function (problem: Solve.Problem, status: Solve.Status): boolean {
+    return true;
+}
+
+
+var reportLimit = function (problem: Solve.Problem, status: Solve.Status, resume: Solve.Resume) {
+}
+
+var reportEnd = function (problem: Solve.Problem, status: Solve.Status, resume: Solve.Resume) {
+}
+
+Solve.solve(problem, new Solve.DefaultStatus(), heuristic, goal, reportGoal, limit, reportLimit, reportEnd);  

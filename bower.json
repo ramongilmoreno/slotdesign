@@ -1,0 +1,14 @@
+{
+  "name": "slotdesign",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ramongilmoreno/slotdesign",
+  "authors": [
+    "Ramón Gil Moreno <ramongilmoreno@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "jquery-ui": "~1.11.4",
+    "angular": "~1.4.0"
+  }
+}

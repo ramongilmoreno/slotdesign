@@ -25,6 +25,7 @@ eclipse {
 }
 
 def whereToBuildTypescript = file("${buildDir}/ts")
+def whereBowerComponentsAre = "build/bower/bower_components"
 
 compileTypeScript {
     outputDir whereToBuildTypescript
@@ -57,9 +58,33 @@ eclipse.preferences.version=1
    file('.settings/com.palantir.typescript.prefs').text = contents;
 }
 
+// https://gist.github.com/spikeheap/8558786
+import org.gradle.api.tasks.Exec
+ 
+// Get the path for the locally installed binaries
+task npmBin << {
+}
+ 
+// Install the bower components for front-end library management
+task bower(type: Exec) {
+    def binPath;
+    new ByteArrayOutputStream().withStream { os ->
+        def result = exec {
+            executable = 'npm'
+            args = ['-g', 'bin']
+            standardOutput = os
+        }
+        binPath = os.toString().trim() + "/"
+    }
+
+
+    commandLine "${binPath}bower", "--config.directory=${whereBowerComponentsAre}", 'install'
+    tasks.npmBin.execute()
+}
+
 war {
-    dependsOn tasks.compileTypeScript
-    from whereToBuildTypescript
+    dependsOn tasks.compileTypeScript, tasks.bower
+    from whereToBuildTypescript, file(whereBowerComponentsAre)
 }
 
 
@@ -77,11 +102,15 @@ def newResourceCollection(File... resources) {
  
 jettyRun {
     dependsOn tasks.compileTypeScript
+    dependsOn tasks.bower
     doFirst { 
         jettyRun.webAppConfig = new JettyPluginWebAppContext() 
         jettyRun.webAppConfig.baseResource = newResourceCollection(
             file(webAppDirName), 
-            whereToBuildTypescript
+            whereToBuildTypescript,
+            file(whereBowerComponentsAre)
         )
     }
 }
+
+
