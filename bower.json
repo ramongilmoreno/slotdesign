@@ -8,6 +8,10 @@
   "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
+    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.0",
+    "platinum-elements": "PolymerElements/platinum-elements#^1.0.0",
+    "neon-elements": "PolymerElements/neon-elements#^1.0.0",
     "jquery-ui": "~1.11.4",
     "angular": "~1.4.0"
   }

@@ -25,7 +25,7 @@ eclipse {
 }
 
 def whereToBuildTypescript = file("${buildDir}/ts")
-def whereBowerComponentsAre = "build/bower/bower_components"
+def whereBowerComponentsAre = "build/bower"
 
 compileTypeScript {
     outputDir whereToBuildTypescript
@@ -78,7 +78,7 @@ task bower(type: Exec) {
     }
 
 
-    commandLine "${binPath}bower", "--config.directory=${whereBowerComponentsAre}", 'install'
+    commandLine "${binPath}bower", "--config.directory=${whereBowerComponentsAre}/bower_components", 'install'
     tasks.npmBin.execute()
 }
 

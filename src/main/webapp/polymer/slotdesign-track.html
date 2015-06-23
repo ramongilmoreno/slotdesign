@@ -1,0 +1,72 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="slotdesign-track">
+
+	<template>
+	    <div id="contents" style="width: 100%; height: 100%; overflow: hidden;"></div>
+    </template>
+
+	<script>
+		Polymer({
+			is: "slotdesign-track",
+			properties: {
+				track: {
+					type: Object
+				}
+			},
+			box: function (track) {
+			    var r = "" + track.box.topLeft.x + " " + track.box.topLeft.y + " " + (track.box.bottomRight.x - track.box.topLeft.x + 20) + " " + (track.box.bottomRight.y - track.box.topLeft.y + 20);
+			    return r;
+			},
+			matrix: function(section) {
+				return "matrix(" + section.matrix.a + "," + section.matrix.b + "," + section.matrix.c + "," + section.matrix.d + "," + section.matrix.e + "," + section.matrix.f + ")";
+      		},
+      		ready : function() {
+				this.track = slotdesign.follow;
+      		
+				var outer = document.createElement("outer");
+				var svg = document.createElement("svg");
+				svg.setAttribute("viewBox", this.box(this.track));
+				svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+				svg.setAttribute("style", "background-color: white; width: 100%; height: 100%;");
+				
+				var createStartLine = function (d) {
+					var startLine = document.createElement("path");
+					startLine.setAttribute("d", d);
+					startLine.setAttribute("stroke", "black");
+					startLine.setAttribute("fill", "red");
+					startLine.setAttribute("stroke-width", "3");
+					svg.appendChild(startLine);
+				}
+				createStartLine("M 0,0 l -150,0 l 20,-50 l 20, 50 z");
+				createStartLine("M 0,0 l  150,0 l -20, 50 l -20,-50 z");
+
+		        var i = 0;
+		        for (i = 0; i < this.track.sections.length; i++) {
+		        	var section = this.track.sections[i];
+			        var g = document.createElement("g");
+			        g.setAttribute("transform", this.matrix(section));
+
+					// Create track
+			        var p = document.createElement("path");
+			        p.setAttribute("d", "M 0,0 " + section.path);
+			        p.setAttribute("stroke", "gray");
+			        p.setAttribute("stroke-width", "3");
+			        g.appendChild(p);
+			        
+			        // Create lanes
+			        p = document.createElement("path");
+			        p.setAttribute("d", "M 0,0 " + section.leftLane + " " + section.rightLane);
+			        p.setAttribute("stroke", "lightgray");
+			        p.setAttribute("fill", "lightgray");
+			        g.appendChild(p);
+			        
+			        svg.appendChild(g);
+		        }
+		        outer.appendChild(svg);
+		        Polymer.dom(this.$.contents).innerHTML = outer.innerHTML;
+            }
+		});
+	</script>
+
+</dom-module>
