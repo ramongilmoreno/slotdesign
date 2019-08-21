@@ -1,10 +1,16 @@
 Slot cars track designer.
 
-Requires TypeScript
+Quick start guide:
+
+1. Install gradle: https://gradle.org/install/
+2. $ npm install -g bower
+3. $ npm install -g typescript
+4. $ gradle jettyRun
+5. Open http://localhost:8080/slotdesign
 
 Try it!
 
-   http://slotdesign-ramongilmoreno.rhcloud.com/slotdesign/
+   [OUTDATED] http://slotdesign-ramongilmoreno.rhcloud.com/slotdesign/
 
 For development:
 
@@ -13,6 +19,7 @@ For development:
 
 Requires
 
+* Gradle
 * Node.js
 * Typescript
 * Bower
