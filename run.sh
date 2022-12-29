@@ -12,7 +12,7 @@ npx tsc
 # https://stackoverflow.com/questions/25672924/run-bower-from-root-user-its-possible-how
 # Requires this "--allow-root" flag to let Docker container run this as root
 #
-npx bower install --allow-root
+npx bower --allow-root install
 
 cp -R bower_components build/bower_components
 
