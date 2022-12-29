@@ -1,25 +1,47 @@
 Slot cars track designer.
 
-Quick start guide:
+Updated December 29th 2022.
 
-1. Install gradle: https://gradle.org/install/
-2. $ npm install -g bower
-3. $ npm install -g typescript
-4. $ gradle jettyRun
-5. Open http://localhost:8080/slotdesign
+    Requires
 
-Try it!
+        Node
 
-   [OUTDATED] http://slotdesign-ramongilmoreno.rhcloud.com/slotdesign/
+            $ node --version
+            v18.12.1
+            $
+        
+    Quick start guide
 
-For development:
+        Build static project into build/index.html by this command
 
-* jettyRun task serves the whole application
-* Supporting TypeScript Eclipse plugin from https://github.com/palantir/eclipse-typescript
+            $ ./run.sh
 
-Requires
+        Start web server to listen on http://127.0.0.1:8080/
 
-* Gradle
-* Node.js
-* Typescript
-* Bower
+            $ ./http-server.sh
+
+***OLD**
+
+    Quick start guide:
+    
+    1. Install gradle: https://gradle.org/install/
+    2. $ npm install -g bower
+    3. $ npm install -g typescript
+    4. $ gradle jettyRun
+    5. Open http://localhost:8080/slotdesign
+    
+    Try it!
+    
+       [OUTDATED] http://slotdesign-ramongilmoreno.rhcloud.com/slotdesign/
+    
+    For development:
+    
+    * jettyRun task serves the whole application
+    * Supporting TypeScript Eclipse plugin from https://github.com/palantir/eclipse-typescript
+    
+    Requires
+    
+    * Gradle
+    * Node.js
+    * Typescript
+    * Bower

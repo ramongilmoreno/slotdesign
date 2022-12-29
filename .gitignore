@@ -6,3 +6,8 @@ workspace/
 .settings/
 .gitignore
 *.swp
+bower_components/
+node_modules/
+package.json
+package-lock.json
+
